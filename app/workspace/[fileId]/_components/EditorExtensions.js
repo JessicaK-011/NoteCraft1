@@ -82,10 +82,11 @@ function EditorExtensions({ editor }) {
     editor.commands.insertContentAt(editor.state.selection.to, contentToInsert);
 
     saveNotes({
-      notes:editor.getHTML(),
-      fileId:fileId,
-      createdBy:user?.primaryEmailAddress?.emailAddress
-    })
+      notes: editor?.getHTML() || "", // Default to an empty string if getHTML() fails
+      fileId: fileId,
+      createdBy: user?.primaryEmailAddress?.emailAddress || "unknown",
+    });
+    
   };
 
   return (

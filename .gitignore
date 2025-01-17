@@ -48,5 +48,7 @@ next-env.d.ts
 config/*.json
 secret_keys.txt
 
+# Environment variables
+.env
 .env.local
-node_modules/
+.env.*.local

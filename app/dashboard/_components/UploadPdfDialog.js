@@ -19,8 +19,9 @@ import { useUser } from "@clerk/nextjs";
 import uuid4 from "uuid4";
 import axios from "axios";
 import { ingest } from "@/convex/myAction";
+import { toast } from "sonner";
 
-function UploadPdfDialog({ children }) {
+function UploadPdfDialog({ children ,isMaxFile}) {
   const generateUploadUrl = useMutation(api.fileStorage.generateUploadUrl);
   const addFileEntry = useMutation(api.fileStorage.AddFileEntryToDb);
   const getFileUrl = useMutation(api.fileStorage.getFileUrl);
@@ -72,11 +73,13 @@ console.log("API Response:", ApiResp);
 
     setLoading(false);
     setOpen(false);
+
+    toast('File is ready!')
   };
   return (
     <Dialog open={open}>
       <DialogTrigger asChild>
-        <Button onClick={()=>setOpen(true)} className="w-full">
+        <Button onClick={()=>setOpen(true)} disabled={isMaxFile} className="w-full">
           +Upload PDF File
         </Button>
 

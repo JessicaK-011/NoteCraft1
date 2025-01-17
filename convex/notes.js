@@ -25,13 +25,19 @@ export const AddNotes=mutation({
     }
 });
 
-export const GetNotes=query({
-    args:{
-        fileId:v.string()
+export const GetNotes = query({
+    args: {
+      fileId: v.string(),
     },
-    handler:async(ctx,args)=>{
-        const result=await ctx.db.query('notes')
-        .filter((q)=>q.eq(q.field('fileId'),args.fileId)).collect()
-        return result[0].notes;
-    }
-})
+    handler: async (ctx, args) => {
+      const result = await ctx.db.query('notes')
+        .filter((q) => q.eq(q.field('fileId'), args.fileId)).collect();
+  
+      if (result.length === 0) {
+        return ""; // Return an empty string if no notes are found
+      }
+  
+      return result[0].notes || ""; // Return notes or an empty string
+    },
+  });
+  
