@@ -77,13 +77,13 @@ console.log("API Response:", ApiResp);
     toast('File is ready!')
   };
   return (
-    <Dialog open={open}>
+    <Dialog open={open} onOpenChange={(open) => setOpen(open)}>
       <DialogTrigger asChild>
-        <Button onClick={()=>setOpen(true)} disabled={isMaxFile} className="w-full">
+        <Button onClick={() => setOpen(true)} disabled={isMaxFile} className="w-full">
           +Upload PDF File
         </Button>
-
       </DialogTrigger>
+  
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Upload PDF file</DialogTitle>
@@ -107,12 +107,15 @@ console.log("API Response:", ApiResp);
             </div>
           </DialogDescription>
         </DialogHeader>
+  
         <DialogFooter className="sm:justify-end">
-          <DialogClose asChild>
-            <Button type="button" variant="secondary">
-              Close
-            </Button>
-          </DialogClose>
+          <Button
+            type="button"
+            variant="secondary"
+            onClick={() => setOpen(false)} // Manually close the dialog
+          >
+            Close
+          </Button>
           <Button onClick={OnUpload} disabled={loading}>
             {loading ? <Loader2Icon className="animate-spin" /> : "Upload"}
           </Button>
@@ -120,6 +123,7 @@ console.log("API Response:", ApiResp);
       </DialogContent>
     </Dialog>
   );
+  
 }
 
 export default UploadPdfDialog;
